@@ -1,0 +1,10 @@
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\bin\Debug\ImageToAsciiConverter.exe.config
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\bin\Debug\ImageToAsciiConverter.exe
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\bin\Debug\ImageToAsciiConverter.pdb
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.csprojAssemblyReference.cache
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.Form1.resources
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.Properties.Resources.resources
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.csproj.GenerateResource.cache
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.csproj.CoreCompileInputs.cache
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.exe
+C:\Users\darke\source\repos\ImageToAsciiConverter\ImageToAsciiConverter\obj\Debug\ImageToAsciiConverter.pdb
