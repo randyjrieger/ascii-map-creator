@@ -69,12 +69,17 @@
             this.lblRow = new System.Windows.Forms.Label();
             this.txtImgHeight = new System.Windows.Forms.TextBox();
             this.txtImgWidth = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.trackCloudSize = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackSpaceFromCoast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackTreeSpray)).BeginInit();
             this.boxMapSelection.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCloudSize)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGo
@@ -113,6 +118,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.trackCloudSize);
+            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.lblErrorMessage);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label13);
@@ -476,6 +485,43 @@
             this.txtImgWidth.TabIndex = 32;
             this.txtImgWidth.Text = "0";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(269, 157);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 13);
+            this.label14.TabIndex = 42;
+            this.label14.Text = "Cloud Size";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(499, 159);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(19, 13);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "20";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(380, 160);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(13, 13);
+            this.label16.TabIndex = 44;
+            this.label16.Text = "1";
+            // 
+            // trackCloudSize
+            // 
+            this.trackCloudSize.Location = new System.Drawing.Point(371, 176);
+            this.trackCloudSize.Maximum = 20;
+            this.trackCloudSize.Minimum = 1;
+            this.trackCloudSize.Name = "trackCloudSize";
+            this.trackCloudSize.Size = new System.Drawing.Size(157, 45);
+            this.trackCloudSize.TabIndex = 43;
+            this.trackCloudSize.Value = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -505,6 +551,7 @@
             this.boxMapSelection.ResumeLayout(false);
             this.boxMapSelection.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackCloudSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -552,6 +599,10 @@
         private System.Windows.Forms.Label lblRow;
         private System.Windows.Forms.TextBox txtImgHeight;
         private System.Windows.Forms.TextBox txtImgWidth;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TrackBar trackCloudSize;
+        private System.Windows.Forms.Label label14;
     }
 }
 

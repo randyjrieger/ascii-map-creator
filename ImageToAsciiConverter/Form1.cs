@@ -17,7 +17,7 @@ namespace ImageToAsciiConverter
         private int fileHeight;
         private string myFilePath;
         private string mySavePath;
-
+        private List<MapPoint> cloudPoints = null;
 
         public Form1()
         {
@@ -72,38 +72,56 @@ namespace ImageToAsciiConverter
             ShallowWaterMaker creator = new ShallowWaterMaker(myFilePath, mySavePath);
             creator.Go();
         }
-        
-        //private void btnChangeMap_Click(object sender, EventArgs e)
-        //{
-        //    SetUp();
-        //    int[,] mapPoints = new int[2, 2];
-
-        //    mapPoints[0, 0] = int.Parse(txtTL1.Text);
-        //    mapPoints[0, 1] = int.Parse(txtTL2.Text);
-
-        //    mapPoints[1, 0] = int.Parse(txtBR1.Text);
-        //    mapPoints[1, 1] = int.Parse(txtBR2.Text);
-
-        //    Terraformer terra = new Terraformer(myFilePath, mySavePath);
-        //    terra.Go(mapPoints, lstTerrain.Text);
-        //}
-        
+                
         private void btnLorax_Click(object sender, EventArgs e)
         {
+            var useCloudOption = optCloudShaped.Checked;            
+            
             lblErrorMessage.Text = "";
             ValidateControls();
 
-             SetUp();
+            SetUp();
             
-            int[,] mapPoints = new int[2, 2];
+            int[,] selectedPoints = new int[2, 2];
 
             var intensity = trackTreeSpray.Value;
 
-            mapPoints[0, 0] = int.Parse(txtTL1.Text);
-            mapPoints[0, 1] = int.Parse(txtTL2.Text);
+            selectedPoints[0, 0] = int.Parse(txtTL1.Text);
+            selectedPoints[0, 1] = int.Parse(txtTL2.Text);
 
-            mapPoints[1, 0] = int.Parse(txtBR1.Text);
-            mapPoints[1, 1] = int.Parse(txtBR2.Text);
+            selectedPoints[1, 0] = int.Parse(txtBR1.Text);
+            selectedPoints[1, 1] = int.Parse(txtBR2.Text);
+
+            if (useCloudOption)
+            {
+                int xLine = selectedPoints[1, 0] - selectedPoints[0, 0];
+                int xCloudPointCount = xLine / 30;
+
+                cloudPoints = new List<MapPoint>();
+                for (var c = 1; c <= xCloudPointCount; c++)
+                {
+                    cloudPoints.Add(new MapPoint(selectedPoints[0, 0] + 30 * c, selectedPoints[0, 1] ));
+                }
+
+                for (var c = 1; c <= xCloudPointCount; c++)
+                {
+                    cloudPoints.Add(new MapPoint(selectedPoints[0, 0] + 30 * c, selectedPoints[1, 1]));
+                }
+                
+                int yLine = selectedPoints[1, 1] - selectedPoints[0, 1];
+                int yCloudPointCount = yLine / 30;
+
+                for (var c = 1; c <= yCloudPointCount; c++)
+                {
+                    cloudPoints.Add(new MapPoint(selectedPoints[0, 0], selectedPoints[0, 1] + 30 * c));
+                }
+
+                for (var c = 1; c <= yCloudPointCount; c++)
+                {
+                    cloudPoints.Add(new MapPoint(selectedPoints[1, 0], selectedPoints[0, 1] + 30 * c));
+                }
+
+            }
 
             string[] map = new string[fileHeight];
             string newRow;
@@ -112,6 +130,15 @@ namespace ImageToAsciiConverter
             string replaceCharLow = "";
             string replaceCharHigh = "";
             string replaceChar = "";
+
+            int cloudIntensity = 3;
+            if (useCloudOption)
+            {
+                var left = int.Parse(txtTL1.Text);
+                var right = int.Parse(txtBR1.Text);
+
+                int x1 = right + left / 2;
+            }
 
             int trackValue = trackTreeSpray.Value;
 
@@ -148,9 +175,9 @@ namespace ImageToAsciiConverter
                     readRow = map[y];
                     for (var x = 0; x < fileWidth; x++)
                     {
-                        if (y >= mapPoints[0, 1] && y <= mapPoints[1, 1])
+                        if (y >= selectedPoints[0, 1] && y <= selectedPoints[1, 1])
                         {
-                            if (x >= mapPoints[0, 0] && x <= mapPoints[1, 0])
+                            if (x >= selectedPoints[0, 0] && x <= selectedPoints[1, 0])
                             {
                                 i = r.Next(1, trackValue + 1);
                                 if (i == 1)
@@ -160,13 +187,28 @@ namespace ImageToAsciiConverter
                                     {
                                         if (LeaveASpace(map, ref readRow, x, y))
                                         {
-                                            newRow += replaceChar;
+                                            if (!useCloudOption)
+                                            {
+                                                newRow += replaceChar;
+                                            }
+                                            else if (!InTheCloudZone(map, ref readRow, x, y))
+                                            {
+                                                newRow += replaceChar;
+                                            }
+                                            else
+                                            {
+                                                newRow += readRow[x];
+                                            }
+                                            // else// if(useCloudOption && CloudSafe(map, ref readRow, x, y))
+                                            //else if ((useCloudOption && CloudSafe(map, ref readRow, x, y)) || !useCloudOption)
+                                            //{
+                                            //    newRow += replaceChar;
+                                            //}
                                         }
                                         else
                                         {
                                             newRow += readRow[x];
                                         }
-
                                     }
                                     else
                                     {
@@ -195,7 +237,36 @@ namespace ImageToAsciiConverter
                     writer.WriteLine(newRow);
                 }
             }
+        }
+        
+        private bool InTheCloudZone(string[] map, ref string newRow, int x, int y)
+        {
+            bool inTheZone = false;
+            int cloudSize = trackCloudSize.Value;
 
+            if ((Math.Abs(y - int.Parse(txtTL2.Text)) < cloudSize) || (Math.Abs(y - int.Parse(txtBR2.Text)) < cloudSize))
+            {
+                foreach (var cloudPoint in cloudPoints)
+                {
+                    if (Math.Abs(x - cloudPoint.X) < cloudSize)
+                    {
+                        inTheZone = true;
+                    }
+                }
+            }
+
+            if ((Math.Abs(x - int.Parse(txtTL1.Text)) < cloudSize) || (Math.Abs(x - int.Parse(txtBR1.Text)) < cloudSize))
+            {
+                foreach (var cloudPoint in cloudPoints)
+                {
+                    if (Math.Abs(y - cloudPoint.Y) < cloudSize)
+                    {
+                        inTheZone = true;
+                    }
+                }
+            }
+
+            return inTheZone;
         }
 
         private void btnSourceFile_Click(object sender, EventArgs e)
@@ -453,5 +524,6 @@ namespace ImageToAsciiConverter
         {
             return Path.GetFileNameWithoutExtension(sourceFileName) + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.Hour + DateTime.Now.Minute + +DateTime.Now.Second + DateTime.Now.Millisecond + ".txt";
         }
+
     }
 }

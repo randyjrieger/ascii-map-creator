@@ -18,7 +18,7 @@
 //            this.TargetLocation = targetLocation;
 //        }
 
-//        public void Go(int[,] mapPoints, string terrainChoice)
+//        public void Go(int[,] selectedPoints, string terrainChoice)
 //        {
 //            string replaceChar = "^";
 
@@ -53,15 +53,15 @@
 
 //            if (terrainChoice == "Path")
 //            {
-//               // MakePath(mapPoints, terrainChoice, replaceChar);
+//               // MakePath(selectedPoints, terrainChoice, replaceChar);
 //            }
 //            else
 //            {
-//                ChangeLandscape(mapPoints, terrainChoice, replaceChar);
+//                ChangeLandscape(selectedPoints, terrainChoice, replaceChar);
 //            }
 
 //        }
-//        public void ChangeLandscape(int[,] mapPoints, string terrainChoice, string replaceChar)
+//        public void ChangeLandscape(int[,] selectedPoints, string terrainChoice, string replaceChar)
 //        {
 //            var fileWidth = 2000;
 //            var fileHeight = 1558;
@@ -86,9 +86,9 @@
 //                    readRow = map[y];
 //                    for (var x = 0; x < fileWidth; x++)
 //                    {
-//                        if (y >= mapPoints[0, 1] && y <= mapPoints[1, 1])
+//                        if (y >= selectedPoints[0, 1] && y <= selectedPoints[1, 1])
 //                        {
-//                            if (x >= mapPoints[0, 0] && x <= mapPoints[1, 0])
+//                            if (x >= selectedPoints[0, 0] && x <= selectedPoints[1, 0])
 //                            {
 //                                if (readRow[x] != '.' & readRow[x] != ',')
 //                                {
@@ -116,7 +116,7 @@
 
 //        }
 //        /*
-//        public void MakePath(int[,] mapPoints, string terrainChoice, string replaceChar)
+//        public void MakePath(int[,] selectedPoints, string terrainChoice, string replaceChar)
 //        {
 //            var fileWidth = 2000;
 //            var fileHeight = 1558;
@@ -140,9 +140,9 @@
 //                readRow = map[y];
 //                for (var x = 0; x < fileWidth; x++)
 //                {
-//                    if (y >= mapPoints[0, 1] && y <= mapPoints[1, 1])
+//                    if (y >= selectedPoints[0, 1] && y <= selectedPoints[1, 1])
 //                    {
-//                        if (x >= mapPoints[0, 0] && x <= mapPoints[1, 0])
+//                        if (x >= selectedPoints[0, 0] && x <= selectedPoints[1, 0])
 //                        {
 //                            if (readRow[x] != '.' & readRow[x] != ',')
 //                            {
